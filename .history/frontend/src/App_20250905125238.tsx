@@ -92,35 +92,44 @@ export default function App() {
   }
 
   return (
-  <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center overflow-x-hidden">
-    <div className="w-full px-4 py-10 flex flex-col gap-10">
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
       <Header />
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-        <SchemaUploader
-          schemaText={schemaText}
-          setSchema={setSchema}
-          dbId={dbId}
-          setDbId={setDbId}
-          dialect={dialect}
-          setDialect={setDialect}
-          loading={loading}
-          handleUploadSchema={handleUploadSchema}
-          DIALECTS={DIALECTS}
-        />
 
-        <QuestionBox
-          question={question}
-          setQuestion={setQuestion}
-          loading={loading}
-          handleAsk={handleAsk}
-        />
+      {/* Main Content */}
+      <div className="flex flex-col gap-10 w-full">
+        {/* Schema uploader (left) and Question box (right) */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+          <div className="w-full">
+            <SchemaUploader
+              schemaText={schemaText}
+              setSchema={setSchema}
+              dbId={dbId}
+              setDbId={setDbId}
+              dialect={dialect}
+              setDialect={setDialect}
+              loading={loading}
+              handleUploadSchema={handleUploadSchema}
+              DIALECTS={DIALECTS}
+            />
+          </div>
+
+          <div className="w-full">
+            <QuestionBox
+              question={question}
+              setQuestion={setQuestion}
+              loading={loading}
+              handleAsk={handleAsk}
+            />
+          </div>
+        </div>
+
+        {/* Response Box takes full row */}
+        <div className="w-full">
+          <ResponseBox response={response} />
+        </div>
+
+        <Footer />
       </div>
-      {/* Response Box */}
-      <ResponseBox response={response} />
-      <Footer />
     </div>
-  </div>
-);
-
+  );
 }

@@ -41,36 +41,19 @@ export default function QuestionBox({
                      transition-all duration-300 shadow disabled:opacity-60 disabled:cursor-not-allowed text-base"
         />
         <button
-  onClick={!loading && question.trim() ? handleAsk : undefined}
-  aria-disabled={loading || !question.trim()}
-  className={`w-full sm:w-auto px-6 py-3 rounded-xl 
-              flex items-center justify-center gap-2 font-semibold shadow-lg
-              transition-all duration-200 active:scale-95 
-              focus:outline-none focus:ring-2 focus:ring-blue-500
-              ${loading || !question.trim() 
-                ? "cursor-not-allowed" 
-                : "hover:scale-[0.99] active:scale-[0.97]"}`}
-  style={
-    loading || !question.trim()
-      ? {
-          backgroundColor: "#1f2937", // gray-800
-          color: "#9ca3af",           // gray-400
-          opacity: 0.8,
-        }
-      : {
-          backgroundColor: "#2563eb", // blue-600
-          color: "#ffffff",
-        }
-  }
-  aria-label="Ask question"
->
-  <Send
-    size={20}
-    className={`${loading ? "animate-spin" : ""} transition-transform`}
-  />
-  {loading ? "Thinking..." : "Ask"}
-</button>
-
+          onClick={handleAsk}
+          disabled={loading || !question.trim()}
+          className="w-full sm:w-auto px-6 py-3 rounded-xl bg-blue-600 hover:bg-blue-700 active:bg-blue-800 disabled:opacity-40
+                     flex items-center justify-center gap-2 font-semibold text-white shadow-lg
+                     transition-all duration-200 active:scale-95 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          aria-label="Ask question"
+        >
+          <Send
+            size={20}
+            className={`${loading ? "animate-spin" : ""} transition-transform`}
+          />
+          {loading ? "Thinking..." : "Ask"}
+        </button>
       </div>
       <p className="text-xs text-gray-500 mt-2 text-center sm:text-left">
         Natural language questions will be converted to SQL!

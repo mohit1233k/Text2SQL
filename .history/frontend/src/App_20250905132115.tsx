@@ -34,25 +34,15 @@ export default function App() {
     try {
       await axios.post(
         "http://localhost:8787/schema/upsert",
-        {
-          userId,
-          dbId,
-          dialect,
-          schemaText,
-        },
-        {
-          headers: { "x-api-key": "keepitsecret" },
-        }
+        { userId, dbId, dialect, schemaText },
+        { headers: { "x-api-key": "keepitsecret" } }
       );
       setSchemaUploaded(true);
       setResponse({ message: "✅ Schema ingested successfully!" });
     } catch (err: any) {
       let errorMsg = "Schema upload failed ❌";
-      if (err.response?.data?.error) {
-        errorMsg = err.response.data.error;
-      } else if (err.message) {
-        errorMsg = err.message;
-      }
+      if (err.response?.data?.error) errorMsg = err.response.data.error;
+      else if (err.message) errorMsg = err.message;
       setResponse({ error: errorMsg });
     } finally {
       setLoading(false);
@@ -73,15 +63,8 @@ export default function App() {
     try {
       const res = await axios.post(
         "http://localhost:8787/generate/sql",
-        {
-          userId,
-          dbId,
-          question,
-          dialect,
-        },
-        {
-          headers: { "x-api-key": "keepitsecret" },
-        }
+        { userId, dbId, question, dialect },
+        { headers: { "x-api-key": "keepitsecret" } }
       );
       setResponse(res.data);
     } catch (err: any) {
@@ -92,11 +75,14 @@ export default function App() {
   }
 
   return (
-  <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center overflow-x-hidden">
-    <div className="w-full px-4 py-10 flex flex-col gap-10">
-      <Header />
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+    <div className="h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white overflow-hidden flex flex-col">
+      {/* Header */}
+      <div className="p-4 shrink-0">
+        <Header />
+      </div>
+
+      {/* Main content: split screen */}
+      <div className="flex-1 grid grid-cols-1 lg:grid-cols-2 gap-6 p-6 overflow-hidden">
         <SchemaUploader
           schemaText={schemaText}
           setSchema={setSchema}
@@ -108,7 +94,6 @@ export default function App() {
           handleUploadSchema={handleUploadSchema}
           DIALECTS={DIALECTS}
         />
-
         <QuestionBox
           question={question}
           setQuestion={setQuestion}
@@ -116,11 +101,16 @@ export default function App() {
           handleAsk={handleAsk}
         />
       </div>
-      {/* Response Box */}
-      <ResponseBox response={response} />
-      <Footer />
-    </div>
-  </div>
-);
 
+      {/* Response box (takes remaining space) */}
+      <div className="flex-1 p-6 overflow-auto">
+        <ResponseBox response={response} />
+      </div>
+
+      {/* Footer */}
+      <div className="p-4 shrink-0">
+        <Footer />
+      </div>
+    </div>
+  );
 }

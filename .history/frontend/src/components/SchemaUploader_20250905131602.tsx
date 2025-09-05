@@ -75,37 +75,29 @@ export default function SchemaUploader({
           ))}
         </select>
 
-        {/* Upload Button (never use disabled; we force styles) */}
+        {/* Upload Button */}
         <button
-          type="button"
-          onClick={!loading ? handleUploadSchema : undefined}
-          aria-disabled={loading}
-          className={`relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl 
-                      font-bold shadow-lg w-full md:w-auto appearance-none select-none
-                      focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors
-                      ${loading ? "cursor-wait" : "hover:scale-[0.99] active:scale-[0.98]"}`}
-          // hard-set colors so nothing can override them
-          style={
-            loading
-              ? {
-                  backgroundColor: "#1f2937", // gray-800
-                  color: "#93c5fd",           // blue-300
-                  pointerEvents: "none",
-                  opacity: 0.95,
-                }
-              : {
-                  backgroundColor: "#16a34a", // green-600
-                  color: "#ffffff",
-                }
-          }
-        >
-          <Upload size={20} className={loading ? "animate-spin" : ""} />
-          <span>{loading ? "Uploading..." : "Upload Schema"}</span>
-        </button>
+        type="button"
+        onClick={!loading ? handleUploadSchema : undefined} // disable clicks when loading
+        className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl 
+                    font-bold shadow-lg w-full md:w-auto
+                    focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors
+                    ${
+                      loading
+                        ? "bg-gray-800 text-blue-300 cursor-wait opacity-80"
+                        : "bg-green-600 hover:bg-green-700 active:bg-green-800 text-white"
+                    }`}
+      >
+        <Upload size={20} className={loading ? "animate-spin" : ""} />
+        {loading ? "Uploading..." : "Upload Schema"}
+      </button>
+
+
       </div>
 
       <p className="text-xs text-gray-500 mt-2 text-center md:text-left">
-        Paste your DDL (CREATE TABLE statements) above and upload for context-aware SQL generation.
+        Paste your DDL (CREATE TABLE statements) above and upload for
+        context-aware SQL generation.
       </p>
     </section>
   );

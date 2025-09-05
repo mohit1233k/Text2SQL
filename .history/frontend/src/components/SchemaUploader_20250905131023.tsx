@@ -27,10 +27,7 @@ export default function SchemaUploader({
     <section className="w-full max-w-xl mx-auto p-6 bg-gradient-to-br from-gray-900/90 via-gray-800/90 to-gray-900/80 rounded-2xl border border-blue-900/30 shadow-2xl ring-1 ring-blue-700/10 space-y-5 transition-all duration-300">
       {/* Schema Input */}
       <div>
-        <label
-          className="block text-base font-bold text-blue-300 mb-2"
-          htmlFor="schema-textarea"
-        >
+        <label className="block text-base font-bold text-blue-300 mb-2" htmlFor="schema-textarea">
           Database Schema (DDL)
         </label>
         <textarea
@@ -45,7 +42,6 @@ export default function SchemaUploader({
           disabled={loading}
         />
       </div>
-
       {/* Options Row */}
       <div className="flex flex-col md:flex-row gap-3">
         {/* DB ID */}
@@ -58,7 +54,6 @@ export default function SchemaUploader({
           disabled={loading}
           aria-label="Database ID"
         />
-
         {/* Dialect Selector */}
         <select
           value={dialect}
@@ -74,36 +69,27 @@ export default function SchemaUploader({
             </option>
           ))}
         </select>
-
-        {/* Upload Button (never use disabled; we force styles) */}
+        {/* Upload Button */}
         <button
-          type="button"
-          onClick={!loading ? handleUploadSchema : undefined}
-          aria-disabled={loading}
-          className={`relative flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl 
-                      font-bold shadow-lg w-full md:w-auto appearance-none select-none
-                      focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors
-                      ${loading ? "cursor-wait" : "hover:scale-[0.99] active:scale-[0.98]"}`}
-          // hard-set colors so nothing can override them
-          style={
-            loading
-              ? {
-                  backgroundColor: "#1f2937", // gray-800
-                  color: "#93c5fd",           // blue-300
-                  pointerEvents: "none",
-                  opacity: 0.95,
-                }
-              : {
-                  backgroundColor: "#16a34a", // green-600
-                  color: "#ffffff",
-                }
-          }
-        >
-          <Upload size={20} className={loading ? "animate-spin" : ""} />
-          <span>{loading ? "Uploading..." : "Upload Schema"}</span>
-        </button>
-      </div>
+  type="button"
+  onClick={handleUploadSchema}
+  disabled={loading}
+  className={`flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl 
+              font-bold shadow-lg w-full md:w-auto
+              focus:outline-none focus:ring-2 focus:ring-green-500 transition-colors
+              ${loading 
+                ? "bg-gray-700 cursor-wait" 
+                : "bg-green-600 hover:bg-green-700 active:bg-green-800"
+              }`}
+  aria-label="Upload schema"
+>
+  <Upload size={20} className={loading ? "animate-spin" : ""} />
+  <span className="text-white">{loading ? "Uploading..." : "Upload Schema"}</span>
+</button>
 
+
+
+      </div>
       <p className="text-xs text-gray-500 mt-2 text-center md:text-left">
         Paste your DDL (CREATE TABLE statements) above and upload for context-aware SQL generation.
       </p>

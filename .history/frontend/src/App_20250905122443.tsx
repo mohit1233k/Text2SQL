@@ -92,11 +92,9 @@ export default function App() {
   }
 
   return (
-  <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center overflow-x-hidden">
-    <div className="w-full px-4 py-10 flex flex-col gap-10">
-      <Header />
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 px-2 py-6">
+      <div className="w-full max-w-2xl bg-gray-950 rounded-2xl shadow-2xl p-4 sm:p-8 flex flex-col gap-8">
+        <Header />
         <SchemaUploader
           schemaText={schemaText}
           setSchema={setSchema}
@@ -108,19 +106,15 @@ export default function App() {
           handleUploadSchema={handleUploadSchema}
           DIALECTS={DIALECTS}
         />
-
         <QuestionBox
           question={question}
           setQuestion={setQuestion}
           loading={loading}
           handleAsk={handleAsk}
         />
+        <ResponseBox response={response} />
+        <Footer />
       </div>
-      {/* Response Box */}
-      <ResponseBox response={response} />
-      <Footer />
     </div>
-  </div>
-);
-
+  );
 }

@@ -92,35 +92,37 @@ export default function App() {
   }
 
   return (
-  <div className="min-h-screen w-screen bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 text-white flex items-center justify-center overflow-x-hidden">
-    <div className="w-full px-4 py-10 flex flex-col gap-10">
-      <Header />
-      {/* Two-column layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
-        <SchemaUploader
-          schemaText={schemaText}
-          setSchema={setSchema}
-          dbId={dbId}
-          setDbId={setDbId}
-          dialect={dialect}
-          setDialect={setDialect}
-          loading={loading}
-          handleUploadSchema={handleUploadSchema}
-          DIALECTS={DIALECTS}
-        />
+    <div className="min-h-screen w-full bg-gradient-to-br from-gray-900 via-gray-800 to-gray-900 p-6">
+      {/* Main Content Full Width */}
+      <div className="flex flex-col gap-10 w-full">
+        <Header />
 
-        <QuestionBox
-          question={question}
-          setQuestion={setQuestion}
-          loading={loading}
-          handleAsk={handleAsk}
-        />
+        {/* Use responsive grid for full stretch */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 w-full">
+          <SchemaUploader
+            schemaText={schemaText}
+            setSchema={setSchema}
+            dbId={dbId}
+            setDbId={setDbId}
+            dialect={dialect}
+            setDialect={setDialect}
+            loading={loading}
+            handleUploadSchema={handleUploadSchema}
+            DIALECTS={DIALECTS}
+          />
+
+          <QuestionBox
+            question={question}
+            setQuestion={setQuestion}
+            loading={loading}
+            handleAsk={handleAsk}
+          />
+        </div>
+
+        <ResponseBox response={response} />
+
+        <Footer />
       </div>
-      {/* Response Box */}
-      <ResponseBox response={response} />
-      <Footer />
     </div>
-  </div>
-);
-
+  );
 }
